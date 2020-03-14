@@ -13,11 +13,15 @@ const App = () => {
   const [options, setOptions] = React.useState(['Canada', 'US', 'England', 'China']);
   const [ans, setAns] = React.useState('Canada')
   const [score, setScore] = React.useState(0)
-
-  // Update score if user is right; generate next game
+  const [reveal, setReveal] = React.useState(false)
+  // Update score if user is right; generate next round
   const handleClick = (selected) => {
     if (selected == ans) setScore(score+1)
-    nextFlag()
+    setReveal(true)
+    setTimeout(() => {
+      setReveal(false)
+      nextFlag()
+    }, 500);
   }
   // Update options and flag
   const nextFlag = () => {
@@ -32,14 +36,13 @@ const App = () => {
     // Fetch country data from FireStore
     flagsRef.where('_id', 'in', country_ids).get()
       .then(snapshot => {
-        snapshot.forEach(doc => {data.push(doc.data())});
+        snapshot.forEach(doc => data.push(doc.data()));
         setOptions(data.map(d => d.country))
         setAns(data[ansIndex].country)
         setFlagUrl(data[ansIndex].url)
       })
       .catch(err => console.log('Error getting documents', err))
     }
-
     return (
     <Grid style={styles.container}>
       <Row size={5}>
@@ -50,7 +53,9 @@ const App = () => {
       </Row>
       <Row size={20}>
         {options.map(option => (
-          <Button rounded bordered dark style={styles.option} key={option} onClick={(e) => handleClick(e.nativeEvent.target.textContent)}>
+          <Button rounded bordered dark
+            style={option == ans && reveal ? styles.answer : styles.option}
+            key={option} onClick={(e) => handleClick(e.nativeEvent.target.textContent)}>
             <Text style={{padding: 5}}>{option}</Text>
           </Button>
         ))}
@@ -70,6 +75,13 @@ const styles = StyleSheet.create({
     minWidth: 100,
     margin: 10,
     justifyContent: 'center',
+  },
+  answer: {
+    minWidth: 100,
+    margin: 10,
+    justifyContent: 'center',
+    backgroundColor: '#C4FFA8',
+    borderColor: 'green',
   },
   title: {
     fontSize: 20,

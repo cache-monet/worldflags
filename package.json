@@ -1,0 +1,38 @@
+{
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "web": "expo start --web",
+    "start": "react-native start",
+    "db": "node db.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "csv-parser": "^2.3.2",
+    "expo": "~36.0.0",
+    "firebase": "^7.8.2",
+    "native-base": "^2.13.8",
+    "pouchdb": "^7.2.1",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
+    "react-native": "~0.61.4",
+    "react-native-dotenv": "^0.2.0",
+    "react-native-easy-grid": "^0.2.2",
+    "react-native-gesture-handler": "~1.5.0",
+    "react-native-reanimated": "~1.4.0",
+    "react-native-screens": "2.0.0-alpha.12",
+    "react-native-unimodules": "~0.7.0",
+    "react-native-web": "~0.11.7"
+  },
+  "devDependencies": {
+    "@babel/core": "~7.6.0",
+    "babel-jest": "~24.9.0",
+    "jest": "~24.9.0",
+    "metro-react-native-babel-preset": "~0.56.0",
+    "react-test-renderer": "~16.9.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "private": true
+}
